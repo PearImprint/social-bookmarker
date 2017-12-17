@@ -1,0 +1,17 @@
+{
+  "name": "Evil Extension",
+  "version": "1.0",
+  "description": "Changes all there/their/they'res to the wrong version of the word",
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["page.js"]
+    }
+  ],
+  "icons": {
+    "16": "pusheen.png",
+    "48": "pusheen.png",
+    "128": "pusheen.png"
+  },
+  "manifest_version": 2
+}
