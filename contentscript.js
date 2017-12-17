@@ -1,1 +1,1 @@
-console.log("ext loaded")
+console.log("detected webpage title: " + document.title)
