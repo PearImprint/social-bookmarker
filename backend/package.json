@@ -1,0 +1,16 @@
+{
+  "name": "Imprint",
+  "version": "0.1.0",
+  "description": "Bookmarking made social.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo Test your code by opening http://localhost:3000 in your browser."
+  },
+  "author": "Imprint Team",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "express": "^4.13.3",
+    "mongoose": "^4.3.4"
+  }
+}
