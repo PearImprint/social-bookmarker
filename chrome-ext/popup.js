@@ -28,10 +28,22 @@ function post(path, params, method) { // should be able to use FormData for this
     method = method || 'POST'; // Set method to post by default if not specified.
 
     var request = new XMLHttpRequest();
-    request.open(method, ROOT_URL + path, true);
-    //request.setRequestHeader("Content-Type", "application/json"); // idk if this is supposed to be here or not
-    request.send(params); // this is posting an empty json
-    console.log(params);
+    request.open(method, 'http://localhost:3000/save', true);
+    request.setRequestHeader("Content-type", "application/json");
+    console.log(method);
+    console.log(ROOT_URL + path);
+    console.log(JSON.stringify(params));
+
+    request.send(JSON.stringify(params)); // this is posting an empty json
+
+    request.onreadystatechange = function() { //Call a function when the state changes.
+        if (request.readyState == XMLHttpRequest.DONE && request.status == 200) {
+            console.log('tings finished');
+        }
+    }
+}
+
+
 };
 
 function setUserId() {

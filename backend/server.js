@@ -34,4 +34,5 @@ app.post('/save', function(req, res) {
 		newBookmark.save();
 		console.log(newBookmark);
 	}
+	res.status(200).send('sent successfully');
 });
