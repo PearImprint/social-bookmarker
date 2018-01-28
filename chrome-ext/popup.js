@@ -41,9 +41,6 @@ function post(path, params, method) { // should be able to use FormData for this
             console.log('tings finished');
         }
     }
-}
-
-
 };
 
 function setUserId() {
