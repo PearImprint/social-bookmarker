@@ -4,7 +4,8 @@
   "description": "Bookmarking made social.",
   "main": "server.js",
   "scripts": {
-    "test": "echo Test your code by opening http://localhost:3000 in your browser."
+    "test": "echo Test your code by opening http://localhost:3000 in your browser.",
+    "start": "node backend/server.js"
   },
   "author": "Imprint Team",
   "license": "ISC",
