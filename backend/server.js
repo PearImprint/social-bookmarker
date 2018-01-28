@@ -16,7 +16,7 @@ const MONGO_URL = `mongodb://localhost:27017/{DATABASE_NAME}`;
 
 mongoose.connect(process.env.MONGODB_URI || MONGO_URL); // questionable.
 
-var server = app.listen(3000, function() {
+var server = app.listen(process.env.PORT || 3000, function() {
 	var port = server.address().port;
 	console.log('Listening at http://localhost:' + port + ' exporting the directory ' + __dirname);
 });
