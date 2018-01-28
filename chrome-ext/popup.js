@@ -44,16 +44,21 @@ function post(path, params, method) { // should be able to use FormData for this
 };
 
 function setUserId() {
-	chrome.storage.sync.get('userid', function(items) {
-	    if (items.userid) {
-	        USER_ID = items.userid;
-	    } else {
-	        USER_ID = getRandomToken();
-	        chrome.storage.sync.set({userid: userid}, function() {
-	            console.log('new id saved');
-	        });
-	    }
-	});
+	// chrome.storage.sync.get('userid', function(items) {
+	//     if (items.userid) {
+	//         USER_ID = items.userid;
+	//     } else {
+	//         USER_ID = getRandomToken();
+	//         chrome.storage.sync.set({userid: userid}, function() {
+	//             console.log('new id saved');
+	//         });
+	//     }
+	// });
+    USER_ID = getRandomToken();
+    chrome.identity.getProfileUserInfo(function(info) {
+        email = info.email;
+        console.log(email);
+    });
 }
 
 function saveBookmark() { // TODO: request other data from page.

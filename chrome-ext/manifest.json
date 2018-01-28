@@ -14,7 +14,8 @@
     "128": "pusheen.png"
   },
   "permissions": [
-    "storage"
+    "storage",
+    "identity"
   ],
   "browser_action": {
     "default_icon": "pusheen.png",
