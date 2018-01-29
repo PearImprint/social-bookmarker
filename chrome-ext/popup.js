@@ -64,13 +64,13 @@ function setUserId() {
 	});
 }
 
-function saveBookmark() { // TODO: request other data from page.
-	console.log('save bookmark clicked');
+function saveImprint() { // TODO: request other data from page.
+	console.log('save imprint clicked');
 	chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
 		chrome.tabs.sendMessage(tabs[0].id, {message: 'getTitle'}, function(response) {
 			console.log('title found was: ' + response.message);
 			console.log('id for user is: ' + USER_ID);
-			const data = {'title': response.message, 'user': USER_ID, 'type': 'bookmark'};
+			const data = {'title': response.message, 'user': USER_ID, 'type': 'imprint'};
 			post('save', data);
 		});
 	});
@@ -78,6 +78,6 @@ function saveBookmark() { // TODO: request other data from page.
 
 // Everything in here runs on page load
 document.addEventListener('DOMContentLoaded', function() {
-	document.getElementById('bookmark').addEventListener('click', saveBookmark);
+	document.getElementById('imprint').addEventListener('click', saveImprint);
 	setUserId();
 });
