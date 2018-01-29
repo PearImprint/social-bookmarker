@@ -47,5 +47,4 @@ function saveImprint() { // TODO: request other data from page.
 // Everything in here runs on page load
 document.addEventListener('DOMContentLoaded', function() {
 	document.getElementById('imprint').addEventListener('click', saveImprint);
-	setUserId();
 });
