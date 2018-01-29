@@ -35,10 +35,16 @@ app.post('/save', function(req, res) {
 				console.log('exists')
 				console.log(exist)
 				if (req.body.vote == 1) {
-					remove(exist.downvoted_users, req.body.user_id);
+					const index = exist.downvoted_users.indexOf(eq.body.user_id);
+				    if (index !== -1) {
+				        exist.downvoted_users.splice(index, 1);
+				    }
 					exist.upvoted_users.push(req.body.user_id);
 				} else {
-					remove(exist.upvoted_users, req.body.user_id);
+					const index = exist.upvoted_users.indexOf(eq.body.user_id);
+				    if (index !== -1) {
+				        exist.upvoted_users.splice(index, 1);
+				    }
 					exist.downvoted_users.push(req.body.user_id);
 				}
 				exist.save();
@@ -74,7 +80,4 @@ app.post('/save', function(req, res) {
 function remove(array, element) {
     const index = array.indexOf(element);
     
-    if (index !== -1) {
-        array.splice(index, 1);
-    }
 }
