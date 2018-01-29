@@ -5,7 +5,6 @@ chrome.runtime.onMessage.addListener(
 	function(request, sender, sendResponse) {
 		console.log("received a request");
 		console.log(request);
-		document.getElementById("rhs").innerHTML = "";
 		if (request.message == "getTitle") {
 			console.log("received a request for page title, responding.");
 			sendResponse({message: document.title});
