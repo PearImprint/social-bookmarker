@@ -18,8 +18,8 @@ var imprintSchema = new mongoose.Schema({
 	selected_texts: {type: [String]},  
 	selected_images: {type: [String]},  
 	// users by google id
-	upvoted_users: {type: [String], required: true, default: []},
-	downvoted_users: {type: [String], required: true, default: []}
+	upvoted_users: {type: [String], default: []},
+	downvoted_users: {type: [String], default: []}
 });
 
 var communitySchema = new mongoose.Schema({
