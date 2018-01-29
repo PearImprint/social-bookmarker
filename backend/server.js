@@ -41,7 +41,7 @@ app.post('/save', function(req, res) {
 				    }
 					exist.upvoted_users.push(req.body.user_id);
 				} else {
-					const index = exist.upvoted_users.indexOf(eq.body.user_id);
+					const index = exist.upvoted_users.indexOf(req.body.user_id);
 				    if (index !== -1) {
 				        exist.upvoted_users.splice(index, 1);
 				    }
