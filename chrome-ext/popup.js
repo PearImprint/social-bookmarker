@@ -47,7 +47,18 @@ function saveImprint() { // TODO: request other data from page.
 	});
 }
 
+function upvote() {
+    console.log('upvoted');
+}
+
 // Everything in here runs on page load
 document.addEventListener('DOMContentLoaded', function() {
 	document.getElementById('imprint').addEventListener('click', saveImprint);
 });
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('upvote').addEventListener('click', upvote);
+});
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('downvote').addEventListener('click', downvote);
+});
+
