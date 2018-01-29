@@ -43,7 +43,9 @@ app.post('/save', function(req, res) {
 						downvoted_users: []
 					});
 					console.log(newImprint)
-					newImprint.save();
+					newImprint.save(function(error, user) {
+						console.log(error)
+					});
 				} else {
 					var newImprint = new models.Imprint({
 						title: req.body.title,
@@ -52,7 +54,9 @@ app.post('/save', function(req, res) {
 						downvoted_users: [req.body.user_id]
 					});
 					console.log(newImprint)
-					newImprint.save();
+					newImprint.save(function(error, user) {
+						console.log(error)
+					});
 				}
 				console.log("new!")
 			}
