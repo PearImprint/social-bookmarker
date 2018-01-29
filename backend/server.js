@@ -39,8 +39,7 @@ app.post('/save', function(req, res) {
 					var newImprint = new models.Imprint({
 						title: req.body.title,
 						url: req.body.url,
-						upvoted_users: [req.body.user_id],
-						downvoted_users: []
+						upvoted_users: [req.body.user_id]
 					});
 					console.log(newImprint)
 					newImprint.save(function(error, user) {
@@ -50,7 +49,6 @@ app.post('/save', function(req, res) {
 					var newImprint = new models.Imprint({
 						title: req.body.title,
 						url: req.body.url,
-						upvoted_users: [],
 						downvoted_users: [req.body.user_id]
 					});
 					console.log(newImprint)
