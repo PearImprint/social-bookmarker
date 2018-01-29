@@ -34,6 +34,13 @@ app.post('/save', function(req, res) {
 			if (exist && !error) {
 				console.log('exists')
 				console.log(exist)
+				if (req.body.vote == 1) {
+					remove(exist.downvoted_users, req.body.user_id);
+					exist.upvoted_users.push(req.body.user_id);
+				} else {
+					remove(exist.upvoted_users, req.body.user_id);
+					exist.downvoted_users.push(req.body.user_id);
+				}
 			} else {
 				if (req.body.vote == 1) {
 					var newImprint = new models.Imprint({
@@ -62,3 +69,11 @@ app.post('/save', function(req, res) {
 	}
 	res.status(200).send('sent successfully');
 });
+
+function remove(array, element) {
+    const index = array.indexOf(element);
+    
+    if (index !== -1) {
+        array.splice(index, 1);
+    }
+}
