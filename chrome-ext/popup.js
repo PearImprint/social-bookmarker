@@ -33,7 +33,8 @@ function post(path, params, method) { // should be able to use FormData for this
     if (IS_LOCAL) {
         request.open(method, 'http://localhost:3000/save', true);
     } else {
-        request.open(method, ' https://pear-imprint.herokuapp.com/save', true);
+        console.log("making heroku request");
+        request.open(method, 'http://pear-imprint.herokuapp.com/save', true);
     }
 
     request.setRequestHeader("Content-type", "application/json");
