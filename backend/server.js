@@ -35,24 +35,24 @@ app.post('/save', function(req, res) {
 				console.log('exists')
 				console.log(exist)
 			} else {
-				var newImprint;
 				if (req.body.vote == 1) {
-					newImprint = new models.Imprint({
+					var newImprint = new models.Imprint({
 						title: req.body.title,
 						user: req.body.user_id,
 						upvoted_users: [req.body.user_id],
 						downvoted_users: []
 					});
+					newImprint.save();
 				} else {
-					newImprint = new models.Imprint({
+					var newImprint = new models.Imprint({
 						title: req.body.title,
 						user: req.body.user_id,
 						upvoted_users: [],
 						downvoted_users: [req.body.user_id]
 					});
+					newImprint.save();
 				}
 				console.log("new!")
-				newImprint.save();
 			}
 		})
 	}
