@@ -69,14 +69,14 @@ function updateVotes(exist, user_id, vote) {
 	const downIndex = exist.downvoted_users.indexOf(user_id);
 	if (vote == 1) {
 	    if (downIndex !== -1) {
-	        exist.downvoted_users.splice(index, 1);
+	        exist.downvoted_users.splice(downIndex, 1);
 	    }
 	    if (upIndex !== -1) {
 			exist.upvoted_users.push(req.body.user_id);
 	    }
 	} else {
 	    if (upIndex !== -1) {
-	        exist.upvoted_users.splice(index, 1);
+	        exist.upvoted_users.splice(upIndex, 1);
 	    }
 	    if (downIndex !== -1) {
 			exist.downvoted_users.push(req.body.user_id);
