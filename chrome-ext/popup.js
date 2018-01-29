@@ -1,6 +1,8 @@
 // separation of concerns: popup.js handles all logic, requests document data from contentscript.js when needed
 // debugging: this code prints in the inspect element of the popup.
 
+const IS_LOCAL = false;
+
 var USER_ID;
 const ROOT_URL = 'http://localhost:3000/';
 
@@ -28,7 +30,13 @@ function post(path, params, method) { // should be able to use FormData for this
     method = method || 'POST'; // Set method to post by default if not specified.
 
     var request = new XMLHttpRequest();
-    request.open(method, 'http://localhost:3000/save', true);
+    if (IS_LOCAL) {
+        request.open(method, 'http://localhost:3000/save', true);
+    } else {
+        console.log("making heroku request");
+        request.open(method, 'http://pear-imprint.herokuapp.com/save', true);
+    }
+
     request.setRequestHeader("Content-type", "application/json");
     console.log(method);
     console.log(ROOT_URL + path);
