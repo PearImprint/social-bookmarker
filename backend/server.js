@@ -9,7 +9,7 @@ var app = express();
 app.use(express.static(__dirname));
 app.use(bodyParser.json());
 
-var Bookmark = require('./schemas/bookmark');
+var models = require('./schemas/models');
 
 const DATABASE_NAME = "data";
 const MONGO_URL = "mongodb://localhost:27017/data";
@@ -23,16 +23,15 @@ var server = app.listen(3000, function() {
 
 app.post('/save', function(req, res) {
 	console.log('received POST');
-	//console.log(req);
-	console.log(req.body); // nothing is being received.
-	if (req.body.type == "bookmark") {
-		console.log("generating bookmark entry");
-		var newBookmark = new Bookmark({
+	console.log(req.body);
+	if (req.body.type == "imprint") {
+		console.log("generating imprint entry");
+		var newImprint = new Imprint({
 			title: req.body.title,
 			user: req.body.user
 		});
-		newBookmark.save();
-		console.log(newBookmark);
+		newImprint.save();
+		console.log(newImprint);
 	}
 	res.status(200).send('sent successfully');
 });
