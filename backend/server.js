@@ -12,11 +12,11 @@ app.use(bodyParser.json());
 var models = require('./schemas/models');
 
 const DATABASE_NAME = "data";
-const MONGO_URL = "mongodb://localhost:27017/data";
+const MONGO_URL = `mongodb://localhost:27017/{DATABASE_NAME}`;
 
-mongoose.connect(MONGO_URL); // questionable.
+mongoose.connect(process.env.MONGODB_URI || MONGO_URL); // questionable.
 
-var server = app.listen(3000, function() {
+var server = app.listen(process.env.PORT || 3000, function() {
 	var port = server.address().port;
 	console.log('Listening at http://localhost:' + port + ' exporting the directory ' + __dirname);
 });
@@ -26,7 +26,7 @@ app.post('/save', function(req, res) {
 	console.log(req.body);
 	if (req.body.type == "imprint") {
 		console.log("generating imprint entry");
-		var newImprint = new Imprint({
+		var newImprint = new models.Imprint({
 			title: req.body.title,
 			user: req.body.user
 		});
