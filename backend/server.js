@@ -30,7 +30,7 @@ app.post('/save', function(req, res) {
 		// 	title: req.body.title,
 		// 	user: req.body.user
 		// });
-		mongoose.model('Imprint').findOne({'url': 'req.body.url'}, function(error, exist) {
+		mongoose.model('Imprint').findOne({'url': req.body.url}, function(error, exist) {
 			if (exist && !error) {
 				console.log('exists')
 				console.log(exist)
