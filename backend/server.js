@@ -41,6 +41,7 @@ app.post('/save', function(req, res) {
 					remove(exist.upvoted_users, req.body.user_id);
 					exist.downvoted_users.push(req.body.user_id);
 				}
+				exist.save();
 			} else {
 				if (req.body.vote == 1) {
 					var newImprint = new models.Imprint({
