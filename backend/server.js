@@ -33,21 +33,8 @@ app.post('/save', function(req, res) {
 		mongoose.model('Imprint').findOne({'url': req.body.url}, function(error, exist) {
 			if (exist && !error) {
 				console.log('exists')
+				updateVotes(exist, req.body.user_id, req.body.vote)
 				console.log(exist)
-				if (req.body.vote == 1) {
-					const index = exist.downvoted_users.indexOf(req.body.user_id);
-				    if (index !== -1) {
-				        exist.downvoted_users.splice(index, 1);
-				    }
-					exist.upvoted_users.push(req.body.user_id);
-				} else {
-					const index = exist.upvoted_users.indexOf(req.body.user_id);
-				    if (index !== -1) {
-				        exist.upvoted_users.splice(index, 1);
-				    }
-					exist.downvoted_users.push(req.body.user_id);
-				}
-				exist.save();
 			} else {
 				if (req.body.vote == 1) {
 					var newImprint = new models.Imprint({
@@ -77,7 +64,23 @@ app.post('/save', function(req, res) {
 	res.status(200).send('sent successfully');
 });
 
-function remove(array, element) {
-    const index = array.indexOf(element);
-    
+function updateVotes(exist, user_id, vote) {
+	const upIndex = exist.upvoted_users.indexOf(user_id);
+	const downIndex = exist.downvoted_users.indexOf(user_id);
+	if (vote == 1) {
+	    if (downIndex !== -1) {
+	        exist.downvoted_users.splice(index, 1);
+	    }
+	    if (upIndex !== -1) {
+			exist.upvoted_users.push(req.body.user_id);
+	    }
+	} else {
+	    if (upIndex !== -1) {
+	        exist.upvoted_users.splice(index, 1);
+	    }
+	    if (downIndex !== -1) {
+			exist.downvoted_users.push(req.body.user_id);
+	    }
+	}
+	exist.save();
 }
