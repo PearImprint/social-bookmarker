@@ -26,12 +26,35 @@ app.post('/save', function(req, res) {
 	console.log(req.body);
 	if (req.body.type == "imprint") {
 		console.log("generating imprint entry");
-		var newImprint = new models.Imprint({
-			title: req.body.title,
-			user: req.body.user
-		});
-		newImprint.save();
-		console.log(newImprint);
+		// var newImprint = new models.Imprint({
+		// 	title: req.body.title,
+		// 	user: req.body.user
+		// });
+		mongoose.model('Imprint').findOne({'url': 'req.body.url'}, function(error, exist) {
+			if (exist && !error) {
+				console.log('exists')
+				console.log(exist)
+			} else {
+				var newImprint;
+				if req.body.vote == 1 {
+					newImprint = new models.Imprint({
+						title: req.body.title,
+						user: req.body.user_id,
+						upvoted_users = [req.body.user_id],
+						downvoted_users = []
+					});
+				} else {
+					newImprint = new models.Imprint({
+						title: req.body.title,
+						user: req.body.user_id,
+						upvoted_users = [],
+						downvoted_users = [req.body.user_id]
+					});
+				}
+				console.log("new!")
+				newImprint.save();
+			}
+		})
 	}
 	res.status(200).send('sent successfully');
 });

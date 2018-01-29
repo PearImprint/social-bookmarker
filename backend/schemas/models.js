@@ -9,20 +9,22 @@ var userSchema = new mongoose.Schema({
     google_id: {type: String, required: true}, 
     imprints: {type: [ObjectId]},  			
     communities: {type: [ObjectId]},  
-    friends: {type: [ObjectId]}
+    friends: {type: [String]}
 });
 
 var imprintSchema = new mongoose.Schema({
 	title: {type: String, required: true},
+	url: {type: String, required: true},
 	selected_texts: {type: [String]},  
 	selected_images: {type: [String]},  
-	upvotes: {type: Number, required: true, default: 0},
-	downvotes: {type: Number, required: true, default: 0}
+	// users by google id
+	upvoted_users: {type: [String], required: true, default: []},
+	downvoted_users: {type: [String], required: true, default: []}
 });
 
 var communitySchema = new mongoose.Schema({
 	name: {type: String, required: true}, 
-	users: {type: [ObjectId]}, 
+	users: {type: [String]}, 
 	imprints: {type: [ObjectId]} 
 });
 
