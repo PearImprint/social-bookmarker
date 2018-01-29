@@ -35,7 +35,7 @@ app.post('/save', function(req, res) {
 				console.log('exists')
 				console.log(exist)
 				if (req.body.vote == 1) {
-					const index = exist.downvoted_users.indexOf(eq.body.user_id);
+					const index = exist.downvoted_users.indexOf(req.body.user_id);
 				    if (index !== -1) {
 				        exist.downvoted_users.splice(index, 1);
 				    }
