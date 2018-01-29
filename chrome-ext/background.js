@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 function xhrWithAuth(callback) {
   var access_token;
   var retry = true;
