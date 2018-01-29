@@ -48,18 +48,6 @@ function vote(voteValue) { // TODO: request other data from page.
 	});
 }
 
-function upvote() {
-    console.log('upvoted');
-}
-
-function downvote() {
-    console.log('downvoted');
-}
-
-// Everything in here runs on page load
-document.addEventListener('DOMContentLoaded', function() {
-	document.getElementById('imprint').addEventListener('click', vote);
-});
 document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('upvote').addEventListener('click', function() { vote(1) });
 });

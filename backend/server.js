@@ -26,10 +26,6 @@ app.post('/save', function(req, res) {
 	console.log(req.body);
 	if (req.body.type == "imprint") {
 		console.log("generating imprint entry");
-		// var newImprint = new models.Imprint({
-		// 	title: req.body.title,
-		// 	user: req.body.user
-		// });
 		mongoose.model('Imprint').findOne({'url': req.body.url}, function(error, exist) {
 			if (exist && !error) {
 				console.log('exists')
