@@ -36,7 +36,7 @@ app.post('/save', function(req, res) {
 				console.log(exist)
 			} else {
 				var newImprint;
-				if req.body.vote == 1 {
+				if (req.body.vote == 1) {
 					newImprint = new models.Imprint({
 						title: req.body.title,
 						user: req.body.user_id,
