@@ -40,7 +40,8 @@ function vote(voteValue) { // TODO: request other data from page.
             chrome.tabs.sendMessage(tabs[0].id, {message: 'getTitle'}, function(response) {
                 console.log('title found was: ' + response.title);
                 console.log('id for user is: ' + USER_ID);
-                const data = {'title': response.title, 'user_id': USER_ID, 'vote': voteValue, 'type': 'imprint'};
+                console.log(response.url)
+                const data = {'title': response.title, 'url': response.url, 'user_id': USER_ID, 'vote': voteValue, 'type': 'imprint'};
                 post('save', data);
             });
         })
