@@ -1,13 +1,11 @@
-// document.getElementById(siteIDs[i]).innerHTML = ""; //Yahoo
-console.log("running bakground");
 function xhrWithAuth(callback) {
   var access_token;
   var retry = true;
   var url = 'https://www.googleapis.com/plus/v1/people/me';
   getToken();
-  console.log("aishfs");
+
   function getToken() {
-      chrome.identity.getAuthToken({ interactive: false }, function(token) {
+      chrome.identity.getAuthToken({ interactive: true }, function(token) {
         if (chrome.runtime.lastError) {
           callback(chrome.runtime.lastError);
           console.log("Error", chrome.runtime.lastError);
@@ -43,19 +41,20 @@ function onUserInfoFetched(error, status, response) {
       }
       console.log("Found emails:", emails);
     }
+    if (user_info.id) {
+    	id = user_info.id;
+    	console.log("found id", id);
+    }
   } else {
     console.log("Error:", error);
   }
 }
 
-/*** Return the email addresses to content.js ***/
 chrome.extension.onMessage.addListener(function(request, sender, sendResponse) {
-  console.log("Sending emails:", emails);
-  sendResponse( {emails: emails})
+  sendResponse( {emails: emails, id: id})
 });
 
-
-/*** Main ***/
-console.log("Running one:none v1.3")
+console.log("Running Background Script")
 var emails = [];
+var id = "testID";
 xhrWithAuth(onUserInfoFetched);
