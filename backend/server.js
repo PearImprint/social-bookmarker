@@ -72,14 +72,14 @@ function updateVotes(exist, user_id, vote) {
 	        exist.downvoted_users.splice(downIndex, 1);
 	    }
 	    if (upIndex === -1) {
-			exist.upvoted_users.push(req.body.user_id);
+			exist.upvoted_users.push(user_id);
 	    }
 	} else {
 	    if (upIndex !== -1) {
 	        exist.upvoted_users.splice(upIndex, 1);
 	    }
 	    if (downIndex === -1) {
-			exist.downvoted_users.push(req.body.user_id);
+			exist.downvoted_users.push(user_id);
 	    }
 	}
 	exist.save();
