@@ -13,7 +13,14 @@
     "48": "pusheen.png",
     "128": "pusheen.png"
   },
+  "oauth2": {
+    "client_id": "151866411169-o6h2fvt9llju94bi8fnkoe1nch0ud53l.apps.googleusercontent.com",
+    "scopes": [
+      "email"
+    ]
+  },
   "permissions": [
+    // "https://www.google-analytics.com/",
     "storage",
     "identity"
   ],
@@ -22,7 +29,8 @@
     "default_popup": "popup.html"
   },
   "background":{
-    "page": "background.html"
+    "scripts": ["background.js"]
   },
-  "manifest_version": 2
+  "manifest_version": 2,
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAtszK/DFWdUV0M+FSFbPkWjUk8uDy/tza11leBY5AaglkNzAleD/7VzawxBmFhwdrp5e03H01bpN4/w6j7dg1I33espnp/Itj/sWygybLn/qwSdYmejFVp2aH1sowuIvrEwO4WCb7PUU4DimugZ1ZshfWvBPVm9O/yadKQXjFrMjBuk3HHXgC5/mL7fxap/Xd/EGD2GVvsO3XIushCFiXRflcIgGvAl+FWNKKFXhfDzm9jw7Bcm30s9L1icN3EvUnwIYEFPDPdDMnmfNJ2eiIIg8KchPRslPM2+U8mcpO6xbIBDABKFojgAUJ3VsZ0Yzxbgjfmo1idIb38cmhsDIElQIDAQAB"
 }
