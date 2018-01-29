@@ -38,7 +38,7 @@ app.post('/save', function(req, res) {
 				if (req.body.vote == 1) {
 					var newImprint = new models.Imprint({
 						title: req.body.title,
-						user: req.body.user_id,
+						url: req.body.url,
 						upvoted_users: [req.body.user_id],
 						downvoted_users: []
 					});
@@ -46,7 +46,7 @@ app.post('/save', function(req, res) {
 				} else {
 					var newImprint = new models.Imprint({
 						title: req.body.title,
-						user: req.body.user_id,
+						url: req.body.url,
 						upvoted_users: [],
 						downvoted_users: [req.body.user_id]
 					});
