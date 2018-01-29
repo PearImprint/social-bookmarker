@@ -32,22 +32,26 @@ function post(path, params, method) { // should be able to use FormData for this
     }
 };
 
-function saveImprint() { // TODO: request other data from page.
-	console.log('save imprint clicked');
+function vote(voteValue) { // TODO: request other data from page.
+	console.log('vote button clicked');
 	chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
         chrome.extension.sendMessage({}, function(response) {
             USER_ID = response.id;
             chrome.tabs.sendMessage(tabs[0].id, {message: 'getTitle'}, function(response) {
                 console.log('title found was: ' + response.title);
                 console.log('id for user is: ' + USER_ID);
-                const data = {'title': response.title, 'user': USER_ID, 'type': 'imprint'};
+                console.log(response.url)
+                const data = {'title': response.title, 'url': response.url, 'user_id': USER_ID, 'vote': voteValue, 'type': 'imprint'};
                 post('save', data);
             });
         })
 	});
 }
 
-// Everything in here runs on page load
 document.addEventListener('DOMContentLoaded', function() {
-	document.getElementById('imprint').addEventListener('click', saveImprint);
+    document.getElementById('upvote').addEventListener('click', function() { vote(1) });
 });
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('downvote').addEventListener('click', function() { vote(-1) });
+});
+

@@ -7,7 +7,8 @@ chrome.runtime.onMessage.addListener(
 		console.log("received a request");
 		if (request.message == "getTitle") {
 			console.log("received a request for page title, responding.");
-			sendResponse({title: document.title});
+			console.log(window.location.href)
+			sendResponse({title: document.title, url: window.location.href});
 		} else {
 			console.log("Wrong");
 		}
@@ -71,4 +72,4 @@ cardStyle = `
 	}
 `;
 
-addStyleString(cardStyle);
+// addStyleString(cardStyle);
