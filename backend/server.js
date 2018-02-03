@@ -64,7 +64,8 @@ app.post("/save", function(req, res) {
 			var communityId = "error"; // #sketchyaf #shadesofclaire
 			if (exist && !error) { // if entry already exists (this should probably be blocked on frontend)
 				console.log("community " + req.body.name + " already exists. Not creating new community.");
-				console.log("new community object id: " + exist.ObjectId)
+				console.log("new community object id: " + exist._id)
+				communityId = exist._id
 			} else {
 				var newCommunity = new models.Community({
 					name: req.body.name,
@@ -72,14 +73,16 @@ app.post("/save", function(req, res) {
 					imprints: []
 				});
 				console.log(newCommunity);
-				console.log("new community object id: " + newCommunity.ObjectId)
+				console.log("new community object id: " + newCommunity._id)
+				communityId = newCommunity._id;
 				newCommunity.save(function(error, community) {
 					console.log(error);
 				});
 			}
-			if(communityId = "error") {
+			if(communityId == "error") {
 				console.log("nope bad things are going to happen");
 			}
+			console.log(req.body);
 			mongoose.model("User").findOne({"google_id":req.body.google_id}, function(error, exist) {
 				if (exist && !error) {
 					const existingCommunities = exist.communities;
@@ -90,6 +93,7 @@ app.post("/save", function(req, res) {
 						console.log("user added to community with ID " + communityId + ".");
 					}
 				} else {
+					console.log(error);
 					console.log("ERROR: user does not exist, but should. check signin process.");
 				}
 			});
