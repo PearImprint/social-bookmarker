@@ -45,6 +45,8 @@ function onUserInfoFetched(error, status, response) {
     	id = user_info.id;
     	console.log("found id", id);
     }
+    const data = {'google_id': id, 'email': emails[0], 'username': "dummyUserName", 'type': "createUser"};
+    post('user', data);
   } else {
     console.log("Error:", error);
   }
