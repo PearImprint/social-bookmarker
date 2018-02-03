@@ -32,8 +32,12 @@ function post(path, params, method) { // should be able to use FormData for this
 function vote(voteValue) { // TODO: request other data from page.
 	console.log("vote button clicked");
 	chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-        chrome.extension.sendMessage({}, function(response) {
-            USER_ID = response.id;
+        var port = chrome.extension.connect({
+          name: "Background Communication"
+        });
+        port.postMessage("Give me the Email");
+        port.onMessage.addListener(function(responseJSON) {
+            USER_ID = responseJSON.id;
             chrome.tabs.sendMessage(tabs[0].id, {message: "getTitle"}, function(response) {
                 console.log("title found was: " + response.title);
                 console.log("id for user is: " + USER_ID);
@@ -57,14 +61,21 @@ function addNewCommunity() {
     dropdown.options[dropdown.options.length] = new Option(newCommunity, newCommunity);
     dropdown.selectedIndex = dropdown.options.length-1;
 
-    const data = {"name": newCommunity, "google_id": USER_ID, type: "community"}
-    post("save", data)
-
-    chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-      chrome.tabs.sendMessage(tabs[0].id, {greeting: "hello"}, function(response) {
-        console.log(response.farewell);
-      });
+    var USER_ID;
+    var port = chrome.extension.connect({
+      name: "Background Communication"
     });
+    port.postMessage("Give me the ID");
+    port.onMessage.addListener(function(responseJSON) {
+        USER_ID = responseJSON.id;
+        const data = {"name": newCommunity, "google_id": USER_ID, "type": "community"};
+        console.log(data);
+        post("save", data);
+    });
+}
+
+function getGoogleId() {
+    
 }
 
 

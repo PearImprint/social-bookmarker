@@ -15,7 +15,8 @@ var user = require("./user")
 const DATABASE_NAME = "data";
 const MONGO_URL = "mongodb://localhost:27017/" + DATABASE_NAME;
 
-mongoose.connect(process.env.MONGODB_URI || MONGO_URL); // questionable.
+mongoose.Promise = global.Promise; 
+mongoose.connect(process.env.MONGODB_URI || MONGO_URL, { useMongoClient: true }); // questionable.
 
 var server = app.listen(process.env.PORT || 3000, function() {
 	var port = server.address().port;
@@ -26,14 +27,13 @@ var server = app.listen(process.env.PORT || 3000, function() {
 // TODO: reorganize server side code around which schemas are being called.
 app.post("/save", function(req, res) {
 	console.log("received POST request to /save");
-	console.log(req.body);
 	if (req.body.type == "imprint") {
 		console.log("saving imprint entry");
 		mongoose.model("Imprint").findOne({"url": req.body.url}, function(error, exist) {
 			if (exist && !error) {
-				console.log("exists")
-				updateVotes(exist, req.body.user_id, req.body.vote)
-				console.log(exist)
+				console.log("exists");
+				console.log(req.body.user_id);
+				updateVotes(exist, req.body.user_id, req.body.vote);
 			} else { // TODO: someone decompose this please
 				if (req.body.vote == 1) {
 					var newImprint = new models.Imprint({
@@ -41,6 +41,7 @@ app.post("/save", function(req, res) {
 						url: req.body.url,
 						upvoted_users: [req.body.user_id]
 					});
+					console.log("new upvote entry: ");
 					console.log(newImprint)
 					newImprint.save(function(error, user) {
 						console.log(error)
@@ -51,6 +52,7 @@ app.post("/save", function(req, res) {
 						url: req.body.url,
 						downvoted_users: [req.body.user_id]
 					});
+					console.log("new downvote entry: ");
 					console.log(newImprint);
 					newImprint.save(function(error, imprint) {
 						console.log(error);
@@ -89,8 +91,14 @@ app.post("/save", function(req, res) {
 					if (exist.communities.includes(req.body.google_id)) {
 						console.log("user is already in community with ID " + communityId + ". taking no action.");
 					} else {
-						exist.communties.push(communityId);
 						console.log("user added to community with ID " + communityId + ".");
+						
+						models.User.update({_id: exist._id}, {
+							$push: {communities: communityId}
+						}, function(error, imprint) {
+							console.log("Error, ", error);
+							console.log("Found imprint, ", imprint);
+						});
 					}
 				} else {
 					console.log(error);
@@ -123,24 +131,54 @@ app.post("/user", function(req, res) {
 function updateVotes(exist, user_id, vote) {
 	const upIndex = exist.upvoted_users.indexOf(user_id);
 	const downIndex = exist.downvoted_users.indexOf(user_id);
+	console.log("exist id", exist._id);
 	if (vote === 1) {										// if user upvotes
-	    if (downIndex !== -1) { 							// if user downvoted before, remove them from downvotes
-	        exist.downvoted_users.splice(downIndex, 1);
+	    if (downIndex !== -1) { 					
+			models.Imprint.update({_id: exist._id}, {
+				$pull: {downvoted_users: user_id}
+			}, function(error, imprint) {
+				console.log("Error, ", error);
+				console.log("Found imprint, ", imprint);
+			});
 	    }
-	    if (upIndex !== -1) {								// if user has upvoted before, remove them from upvotes
-	    	exist.upvoted_users.splice(upIndex,1);
+	    if (upIndex !== -1) {
+			models.Imprint.update({_id: exist._id}, {
+				$pull: {upvoted_users: user_id}
+			}, function(error, imprint) {
+				console.log("Error, ", error);
+				console.log("Found imprint, ", imprint);
+			});
 	    } else {
-			exist.upvoted_users.push(user_id);				// if user has not upvoted before, add them to upvoted users
+			models.Imprint.update({_id: exist._id}, {
+				$push: {upvoted_users: user_id}
+			}, function(error, imprint) {
+				console.log("Error, ", error);
+				console.log("Found imprint, ", imprint);
+			});		// if user has not upvoted before, add them to upvoted users
 	    }
 	} else {
-	    if (upIndex !== -1) {
-	        exist.upvoted_users.splice(upIndex, 1);
+		if (upIndex !== -1) { 					
+			models.Imprint.update({_id: exist._id}, {
+				$pull: {upvoted_users: user_id}
+			}, function(error, imprint) {
+				console.log("Error, ", error);
+				console.log("Found imprint, ", imprint);
+			});
 	    }
-	    if (downIndex !== -1){
-	    	exist.downvoted_users.splice(downIndex, 1);
+	    if (downIndex !== -1) {
+			models.Imprint.update({_id: exist._id}, {
+				$pull: {downvoted_users: user_id}
+			}, function(error, imprint) {
+				console.log("Error, ", error);
+				console.log("Found imprint, ", imprint);
+			});
 	    } else {
-			exist.downvoted_users.push(user_id);
+			models.Imprint.update({_id: exist._id}, {
+				$push: {downvoted_users: user_id}
+			}, function(error, imprint) {
+				console.log("Error, ", error);
+				console.log("Found imprint, ", imprint);
+			});		// if user has not upvoted before, add them to upvoted users
 	    }
 	}
-	exist.save();
 }
