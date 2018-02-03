@@ -24,7 +24,7 @@ var imprintSchema = new mongoose.Schema({
 
 var communitySchema = new mongoose.Schema({
 	name: {type: String, required: true}, 
-	users: {type: [String]}, 
+	users: {type: [String]}, // List of google ids.
 	imprints: {type: [ObjectId]} 
 });
 
