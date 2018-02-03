@@ -1,7 +1,7 @@
 // separation of concerns: popup.js handles all logic, requests document data from contentscript.js when needed
 // debugging: this code prints in the inspect element of the popup.
 
-const IS_LOCAL = false;
+const IS_LOCAL = true;
 
 var USER_ID;
 const ROOT_URL = 'http://localhost:3000/';
@@ -19,9 +19,6 @@ function post(path, params, method) { // should be able to use FormData for this
     }
 
     request.setRequestHeader("Content-type", "application/json");
-    console.log(method);
-    console.log(ROOT_URL + path);
-    console.log(JSON.stringify(params));
 
     request.send(JSON.stringify(params)); // this is posting an empty json
 
