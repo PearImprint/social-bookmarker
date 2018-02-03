@@ -101,7 +101,7 @@ app.post("/save", function(req, res) {
 	} else {
 		console.log("you fucked up");
 	}
-	res.status(200).send('sent successfully');
+	res.status(200).send("sent successfully");
 });
 
 // anything that accesses user data here
@@ -123,18 +123,22 @@ app.post("/user", function(req, res) {
 function updateVotes(exist, user_id, vote) {
 	const upIndex = exist.upvoted_users.indexOf(user_id);
 	const downIndex = exist.downvoted_users.indexOf(user_id);
-	if (vote === 1) {
-	    if (downIndex !== -1) {
+	if (vote === 1) {										// if user upvotes
+	    if (downIndex !== -1) { 							// if user downvoted before, remove them from downvotes
 	        exist.downvoted_users.splice(downIndex, 1);
 	    }
-	    if (upIndex === -1) {
-			exist.upvoted_users.push(user_id);
+	    if (upIndex !== -1) {								// if user has upvoted before, remove them from upvotes
+	    	exist.upvoted_users.splice(upIndex,1);
+	    } else {
+			exist.upvoted_users.push(user_id);				// if user has not upvoted before, add them to upvoted users
 	    }
 	} else {
 	    if (upIndex !== -1) {
 	        exist.upvoted_users.splice(upIndex, 1);
 	    }
-	    if (downIndex === -1) {
+	    if (downIndex !== -1){
+	    	exist.downvoted_users.splice(downIndex, 1);
+	    } else {
 			exist.downvoted_users.push(user_id);
 	    }
 	}
