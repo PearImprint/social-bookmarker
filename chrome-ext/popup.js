@@ -57,8 +57,12 @@ function addNewCommunity() {
     dropdown.options[dropdown.options.length] = new Option(newCommunity, newCommunity);
     dropdown.selectedIndex = dropdown.options.length-1;
 
-    const data = {"name": newCommunity, "google_id": USER_ID, type: "community"}
-    post("save", data)
+    const data = {"name": newCommunity, "google_id": USER_ID, "type": "community"};
+    post("save", data);
+}
+
+function getGoogleId() {
+    
 }
 
 
