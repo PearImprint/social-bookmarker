@@ -50,8 +50,15 @@ function vote(voteValue) { // TODO: request other data from page.
 
 document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('upvote').addEventListener('click', function() { vote(1) });
-});
-document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('downvote').addEventListener('click', function() { vote(-1) });
+    document.getElementById('add').addEventListener("click", changeCommunity);
 });
+
+function changeCommunity() {
+    var dropdown = document.getElementById('dropdown');
+    var newCommunity = document.getElementById('newCommunity').value;
+    dropdown.options[dropdown.options.length] = new Option(newCommunity, newCommunity);
+    dropdown.selectedIndex = dropdown.options.length-1;
+}
+
 

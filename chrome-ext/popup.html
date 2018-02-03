@@ -1,15 +1,27 @@
 <html>
 	<head>
 		<script src="popup.js"></script>
-		<style>
-			button {
-				font-size: 30px;
-			}
-		</style>
+		<link rel="stylesheet" type="text/css" href="popup.css">
 	</head>
 	<body>
-		<button id="upvote">Upvote</button>
-		<button id="downvote">Downvote</button>
-		<button id="imprint">Imprint</button>
+		<div class="flex-container">
+			<div class="flex-container" id="voting">
+				<button id="upvote">Upvote</button>
+				<button id="downvote">Downvote</button>
+			</div>
+			<div class="flex-container" id="community">
+				<div class="flex-container" id="addCommunity">
+					<input type="text" id="newCommunity">
+    				<button id="add">Add Community</button>
+				</div>
+				<select id="dropdown">
+				  <option value="volvo">Volvo</option>
+				  <option value="saab">Saab</option>
+				  <option value="mercedes">Mercedes</option>
+				  <option value="audi">Audi</option>
+				</select>
+
+			</div>
+		</div>
 	</body>
 </html>
