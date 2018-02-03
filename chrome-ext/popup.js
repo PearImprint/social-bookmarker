@@ -59,6 +59,12 @@ function addNewCommunity() {
 
     const data = {"name": newCommunity, "google_id": USER_ID, type: "community"}
     post("save", data)
+
+    chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+      chrome.tabs.sendMessage(tabs[0].id, {greeting: "hello"}, function(response) {
+        console.log(response.farewell);
+      });
+    });
 }
 
 
